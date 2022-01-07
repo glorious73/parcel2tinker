@@ -1,6 +1,7 @@
 # Parcel 2 First Web App
 ## Introduction
 This is me tinkering with Parcel 2 for the first time :)
+Tutorial reference: https://parceljs.org/getting-started/webapp/
 ## Project
 - Technology: HTML, CSS, JavaScript.
 ## How To Run
