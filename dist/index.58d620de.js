@@ -521,6 +521,6 @@ function hmrAcceptRun(bundle, id) {
 },{}],"5mvL2":[function(require,module,exports) {
 console.log('Hello world, Parcel 2!');
 
-},{}]},["7JOpS","5mvL2"], "5mvL2", "parcelRequire94c2")
+},{}]},["7JOpS","5mvL2"], "5mvL2", "parcelRequire3f34")
 
 //# sourceMappingURL=index.58d620de.js.map
