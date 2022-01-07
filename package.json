@@ -1,7 +1,10 @@
 {
+  "name": "parcel2tinker",
+  "source": "src/index.html",
+  "browserslist": "> 1%, last 2 versions, not dead",
   "scripts": {
-    "dev": "parcel src/index.html",
-    "build": "parcel build src/index.html --public-url ./"
+    "dev": "parcel ",
+    "build": "parcel build"
   },
   "devDependencies": {
     "parcel": "^2.1.1"
