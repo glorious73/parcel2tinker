@@ -519,7 +519,134 @@ function hmrAcceptRun(bundle, id) {
 }
 
 },{}],"5mvL2":[function(require,module,exports) {
-console.log('Hello world, Parcel 2!');
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+var _fetchService = require("./service/FetchService");
+var _fetchServiceDefault = parcelHelpers.interopDefault(_fetchService);
+/*-- Objects --*/ const fetchService = new _fetchServiceDefault.default();
+/*-- /Objects --*/ /*--Functions--*/ async function submitForm(e, form) {
+    // 1. Prevent reloading page
+    e.preventDefault();
+    // 2. Submit the form
+    // 2.1 User Interaction
+    const btnSubmit = document.getElementById('btnSubmit');
+    btnSubmit.disabled = true;
+    setTimeout(()=>btnSubmit.disabled = false
+    , 2000);
+    // 2.2 Build JSON body
+    const jsonFormData = buildJsonFormData(form);
+    // 2.3 Build Headers
+    const headers = buildHeaders();
+    // 2.4 Request & Response
+    const response = await fetchService.performPostHttpRequest(`https://jsonplaceholder.typicode.com/posts`, headers, jsonFormData); // Uses JSON Placeholder
+    console.log(response);
+    // 2.5 Inform user of result
+    if (response) {
+        document.querySelector('#success_div').style.display = 'block';
+        document.querySelector('#response_p').innerHTML = JSON.stringify(response);
+    } else alert(`An error occured.`);
+}
+function buildHeaders(authorization = null) {
+    const headers = {
+        "Content-Type": "application/json",
+        "Authorization": authorization ? authorization : "Bearer TOKEN_MISSING"
+    };
+    return headers;
+}
+function buildJsonFormData(form) {
+    const jsonFormData = {
+    };
+    for (const pair of new FormData(form))jsonFormData[pair[0]] = pair[1];
+    return jsonFormData;
+}
+/*--/Functions--*/ /*--Event Listeners--*/ const sampleForm = document.querySelector("#sampleForm");
+if (sampleForm) sampleForm.addEventListener("submit", function(e) {
+    submitForm(e, this);
+});
+ /*--/Event Listeners--*/ 
+
+},{"./service/FetchService":"fgY3a","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"fgY3a":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+class FetchService {
+    constructor(){
+    }
+    async performGetHttpRequest(fetchLink, headers, query = null) {
+        if (!fetchLink || !headers) throw new Error("One or more GET request parameters was not passed.");
+        try {
+            const rawResponse = await fetch(fetchLink, {
+                method: "GET",
+                headers: headers,
+                query: query != null ? query : ""
+            });
+            const content = await rawResponse.json();
+            return content;
+        } catch (err) {
+            console.error(`Error at fetch GET: ${err}`);
+            throw err;
+        }
+    }
+    async performPostHttpRequest(fetchLink, headers, body) {
+        if (!fetchLink || !headers || !body) throw new Error("One or more POST request parameters was not passed.");
+        try {
+            const rawResponse = await fetch(fetchLink, {
+                method: "POST",
+                headers: headers,
+                body: JSON.stringify(body)
+            });
+            const content = await rawResponse.json();
+            return content;
+        } catch (err) {
+            console.error(`Error at fetch POST: ${err}`);
+            throw err;
+        }
+    }
+    async performPutHttpRequest(fetchLink, headers, body) {
+        if (!fetchLink || !headers || !body) throw new Error("One or more POST request parameters was not passed.");
+        try {
+            const rawResponse = await fetch(fetchLink, {
+                method: "PUT",
+                headers: headers,
+                body: JSON.stringify(body)
+            });
+            const content = await rawResponse.json();
+            return content;
+        } catch (err) {
+            console.error(`Error at fetch PUT: ${err}`);
+            throw err;
+        }
+    }
+}
+exports.default = FetchService;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"ciiiV":[function(require,module,exports) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, '__esModule', {
+        value: true
+    });
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === 'default' || key === '__esModule' || dest.hasOwnProperty(key)) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
+    });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
 
 },{}]},["7JOpS","5mvL2"], "5mvL2", "parcelRequire3f34")
 
